@@ -1,0 +1,27 @@
+---
+- name: upload percona repo package
+  file:
+    src: percona-release_latest.generic_all.deb
+    dest: /tmp/percona-release_latest.generic_all.deb
+    mode: 0755
+    owner: ansible
+    group: ansible
+- name: add perocna repo
+  apt:
+     deb: /tmp/percona-release_latest.generic_all.deb
+     update_cache: yes
+  when: ansible_os_family == "Debian"
+- name: Enable Percona-XtraDB-8.0 Release
+  command: percona-release enable pxc-80
+- name: install percona-xtradb-cluster
+  apt:
+    name: percona-xtradb-cluster-full
+    update_cache: yes
+    state: present
+  when: ansible_os_family == "Debian"
+  notify: stop mysql
+- name: copy config files
+  template:
+    src: mysqld.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+
