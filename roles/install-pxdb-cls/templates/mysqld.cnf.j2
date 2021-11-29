@@ -32,7 +32,7 @@ wsrep_provider=/usr/lib/galera4/libgalera_smm.so
 # Cluster connection URL contains IPs of nodes
 #If no IP is found, this implies that a new cluster needs to be created,
 #in order to do that you need to bootstrap this node
-{% if node-no == 1 %}
+{% if node-name == node1 %}
 wsrep_cluster_address=
 {% else %}
 wsrep_cluster_address=gcomm://{{node1-ip}},{{node2-ip}},{{node3-ip}}
