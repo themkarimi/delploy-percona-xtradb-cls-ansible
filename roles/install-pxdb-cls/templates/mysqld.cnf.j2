@@ -1,3 +1,15 @@
+{% if node-no == 1 %}
+  {% set pxc-node-ip = node1-ip %}
+  {% set pxc-node-name = node1-name %}
+  {% elseif node-no == 2 %}
+      {% set pxc-node-ip = node2-ip %}
+      {% set pxc-node-name = node2-name %}
+        {% elseif node_no == 3 %}
+            {% set pxc-node-ip = node3-ip %}
+            {% set pxc-node-name = node3-name %}
+        {% endif %}
+  {% endif %}
+{% endif %}
 # Template my.cnf for PXC
 # Edit to your requirements.
 [client]
@@ -20,8 +32,11 @@ wsrep_provider=/usr/lib/galera4/libgalera_smm.so
 # Cluster connection URL contains IPs of nodes
 #If no IP is found, this implies that a new cluster needs to be created,
 #in order to do that you need to bootstrap this node
-wsrep_cluster_address=gcomm://{{pxc-node1-ip}},{{pxc-node2-ip}},{{pxc-node3-ip}}
-
+{% if node-no == 1 %}
+wsrep_cluster_address=
+{% else %}
+wsrep_cluster_address=gcomm://{{node1-ip}},{{node2-ip}},{{node3-ip}}
+{% endif %}
 # In order for Galera to work correctly binlog format should be ROW
 binlog_format=ROW
 
