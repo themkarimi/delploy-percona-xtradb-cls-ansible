@@ -11,7 +11,7 @@
   service:
     name: mysql
     state: restarted
-- name: 
+- name:  modify the first node mysql.cnf 
   template:
     srv: mysqld-first.cnf.j2
     dest: /etc/mysql/mysql.conf.d/mysqld.cnf

@@ -1,6 +1,6 @@
 ---
 - name: upload percona repo package
-  file:
+  copy:
     src: percona-release_latest.generic_all.deb
     dest: /tmp/percona-release_latest.generic_all.deb
     mode: 0755
@@ -28,18 +28,18 @@
   when: ansible_os_family == "Debian"
 - name: bootstrap the cluster
   command: systemctl start mysql@bootstrap.service
-  when: node-no ==  "1"
+  when: node_no ==  1
 - name: add the second node to the cluster
   service:
     name: mysql
     state: started
-  when: node-no == "2"
+  when: node_no == 2
 - name: add the third node the cluster
   service:
     name: mysql
     state: started
-  when: node-no == "3"
+  when: node_no == 3
   notify: modify the first node mysql.cnf
-- name: reboot the first node
-  command: reboot
-  when: node-no == "1"
+  #- name: reboot the first node
+  # command: reboot
+  # modify the first node mysql.cnf when: node_no == 1

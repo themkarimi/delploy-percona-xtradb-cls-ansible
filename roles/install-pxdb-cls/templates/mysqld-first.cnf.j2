@@ -20,7 +20,7 @@ wsrep_provider=/usr/lib/galera4/libgalera_smm.so
 # Cluster connection URL contains IPs of nodes
 #If no IP is found, this implies that a new cluster needs to be created,
 #in order to do that you need to bootstrap this node
-wsrep_cluster_address=gcomm://{{node1-ip}},{{node2-ip}},{{node3-ip}}
+wsrep_cluster_address=gcomm://{{node1_ip}},{{node2_ip}},{{node3_ip}}
 # In order for Galera to work correctly binlog format should be ROW
 binlog_format=ROW
 
@@ -33,12 +33,12 @@ wsrep_log_conflicts
 innodb_autoinc_lock_mode=2
 
 # Node IP address
-wsrep_node_address={{node1-ip}}
+wsrep_node_address={{node1_ip}}
 # Cluster name
-wsrep_cluster_name={{pxc-clutser-name}}
+wsrep_cluster_name=pxc-clutser
 
 #If wsrep_node_name is not specified,  then system hostname will be used
-wsrep_node_name={{node1-name}}
+wsrep_node_name={{node1_name}}
 
 #pxc_strict_mode allowed values: DISABLED,PERMISSIVE,ENFORCING,MASTER
 pxc_strict_mode=ENFORCING
