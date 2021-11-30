@@ -1,1 +1,7 @@
-pxc-cluster-name: pxc-cluster
+node1_name: node1
+node1_ip: 192.168.110.105 
+node2_name: node2
+node2_ip: 192.168.110.106
+node3_name: node3
+node3_ip: 192.168.110.107
+

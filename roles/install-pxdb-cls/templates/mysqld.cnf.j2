@@ -1,15 +1,18 @@
-{% if node-no == 1 %}
-  {% set pxc-node-ip = node1-ip %}
-  {% set pxc-node-name = node1-name %}
-  {% elseif node-no == 2 %}
-      {% set pxc-node-ip = node2-ip %}
-      {% set pxc-node-name = node2-name %}
-        {% elseif node_no == 3 %}
-            {% set pxc-node-ip = node3-ip %}
-            {% set pxc-node-name = node3-name %}
-        {% endif %}
-  {% endif %}
+{% if node_no == 1 %}
+{% set pxc_node_ip = node1_ip %}
+{% set pxc_node_name = node1_name %}
 {% endif %}
+
+{% if node_no == 2 %}
+{% set pxc_node_ip = node2_ip %}
+{% set pxc_node_name = node2_name %}
+{% endif %}
+
+{% if node_no == 3 %}
+{% set pxc_node_ip = node3_ip %}
+{% set pxc_node_name = node3_name %}
+{% endif %}
+ 
 # Template my.cnf for PXC
 # Edit to your requirements.
 [client]
@@ -32,10 +35,10 @@ wsrep_provider=/usr/lib/galera4/libgalera_smm.so
 # Cluster connection URL contains IPs of nodes
 #If no IP is found, this implies that a new cluster needs to be created,
 #in order to do that you need to bootstrap this node
-{% if node-name == node1 %}
+{% if node_no == 1 %}
 wsrep_cluster_address=
 {% else %}
-wsrep_cluster_address=gcomm://{{node1-ip}},{{node2-ip}},{{node3-ip}}
+wsrep_cluster_address=gcomm://{{node1_ip}},{{node2_ip}},{{node3_ip}}
 {% endif %}
 # In order for Galera to work correctly binlog format should be ROW
 binlog_format=ROW
@@ -49,12 +52,12 @@ wsrep_log_conflicts
 innodb_autoinc_lock_mode=2
 
 # Node IP address
-wsrep_node_address={{pxc-node-ip}}
+wsrep_node_address={{pxc_node_ip}}
 # Cluster name
-wsrep_cluster_name={{pxc-clutser-name}}
+wsrep_cluster_name=pxc-cluster
 
 #If wsrep_node_name is not specified,  then system hostname will be used
-wsrep_node_name={{pxc-node-name}}
+wsrep_node_name={{pxc_node_name}}
 
 #pxc_strict_mode allowed values: DISABLED,PERMISSIVE,ENFORCING,MASTER
 pxc_strict_mode=ENFORCING
